@@ -7,11 +7,11 @@ create_directory() {
 
 if ! create_directory;
 then
-	echo "the code is being exited as the directory aready exists..."
+	echo "the directory aready exists..."
 	exit 1
 fi
 
 
-echo "this should not work beacuse the code is interrupted"
+echo "This helps the script exit safely when an error is detected"
 
 
