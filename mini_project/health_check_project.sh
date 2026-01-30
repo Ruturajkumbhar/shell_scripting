@@ -30,9 +30,9 @@ echo "$DATE - System Health Check Start" >> "$LOG_FILE"
 DISK_USAGE=$(df / | awk 'NR==2 {print $5}' | sed 's/%//')
 
 if [ "$DISK_USAGE" -gt "$DISK_THRESHOLD" ]; then
-  echo "⚠️ Disk Usage HIGH: ${DISK_USAGE}%" >> "$LOG_FILE"
+  echo " Disk Usage HIGH: ${DISK_USAGE}%" >> "$LOG_FILE"
 else
-  echo "✅ Disk Usage OK: ${DISK_USAGE}%" >> "$LOG_FILE"
+  echo " Disk Usage OK: ${DISK_USAGE}%" >> "$LOG_FILE"
 fi
 
 # --------------------------------
@@ -41,18 +41,18 @@ fi
 FREE_MEM=$(free -m | awk 'NR==2 {print $7}')
 
 if [ "$FREE_MEM" -lt "$MEM_THRESHOLD" ]; then
-  echo "⚠️ Memory LOW: ${FREE_MEM} MB" >> "$LOG_FILE"
+  echo " Memory LOW: ${FREE_MEM} MB" >> "$LOG_FILE"
 else
-  echo "✅ Memory OK: ${FREE_MEM} MB" >> "$LOG_FILE"
+  echo " Memory OK: ${FREE_MEM} MB" >> "$LOG_FILE"
 fi
 
 # --------------------------------
 # Service Status Check
 # --------------------------------
 if systemctl is-active --quiet "$SERVICE"; then
-  echo "✅ Service '$SERVICE' is running" >> "$LOG_FILE"
+  echo " Service '$SERVICE' is running" >> "$LOG_FILE"
 else
-  echo "❌ Service '$SERVICE' is NOT running" >> "$LOG_FILE"
+  echo " Service '$SERVICE' is NOT running" >> "$LOG_FILE"
 fi
 
 echo "$DATE - System Health Check End" >> "$LOG_FILE"
