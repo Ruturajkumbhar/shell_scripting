@@ -18,7 +18,7 @@ touch "$LOG_FILE"
 # --------------------------------
 DISK_THRESHOLD=80
 MEM_THRESHOLD=500   # in MB
-SERVICE="ssh"
+SERVICES=("ssh" "nginx")
 DATE=$(date "+%Y-%m-%d %H:%M:%S")
 
 echo "===================================" >> "$LOG_FILE"
@@ -49,11 +49,13 @@ fi
 # --------------------------------
 # Service Status Check
 # --------------------------------
-if systemctl is-active --quiet "$SERVICE"; then
-  echo " Service '$SERVICE' is running" >> "$LOG_FILE"
-else
-  echo " Service '$SERVICE' is NOT running" >> "$LOG_FILE"
-fi
+for SERVICE in "${SERVICES[@]}"; do
+  if systemctl is-active --quiet "$SERVICE"; then
+    echo " Service '$SERVICE' is running" >> "$LOG_FILE"
+  else
+    echo " Service '$SERVICE' is NOT running" >> "$LOG_FILE"
+  fi
+done
 
 echo "$DATE - System Health Check End" >> "$LOG_FILE"
 
